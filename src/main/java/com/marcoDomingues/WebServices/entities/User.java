@@ -1,5 +1,6 @@
 package com.marcoDomingues.WebServices.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -21,6 +22,7 @@ public class User implements Serializable {
     private String phone;
     private String password;
 
+    @JsonIgnore //to break loop between User and Order
     // association one to many, using "mappedBy" for calling the attribute client from User class
     @OneToMany(mappedBy = "client")
     private List<Order> orders = new ArrayList<>();
