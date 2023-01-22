@@ -15,7 +15,7 @@ import java.util.List;
 
 
 @RestController //responding in /users path.
-@RequestMapping(value = "/users")
+@RequestMapping(value = "/products")
 public class ProductResource {
 
     //service dependency call.
