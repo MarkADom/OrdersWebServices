@@ -19,9 +19,14 @@ public class Product implements Serializable {
     private Double price;
     private String imgUrl;
 
-    //Using set to ensure that I won't have a product with more than one occurrence of the same category
-    @Transient
+    @ManyToMany
+    //Asociating to a table and what the foreign keys will be associated.
+    @JoinTable(name = "tb_product_category",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
+
     private Set<Category> categories = new HashSet<>();
+    //Using set to ensure that I won't have a product with more than one occurrence of the same category
 
 
     public Product() {
@@ -73,6 +78,10 @@ public class Product implements Serializable {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
     }
 
     @Override
