@@ -2,6 +2,7 @@ package com.marcoDomingues.WebServices.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.marcoDomingues.WebServices.entities.enums.OrderStatus;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -18,6 +19,9 @@ public class Order implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant moment;
 
+    //to allow database recognise that is recording an integer.
+    private Integer orderStatus;
+
     @ManyToOne
     @JoinColumn(name = "client_id")
     private User client;
@@ -25,10 +29,12 @@ public class Order implements Serializable {
     public Order() {
     }
 
-    public Order(Long id, Instant date, User client) {
+    public Order(Long id, Instant moment,OrderStatus orderStatus,User client) {
         this.id = id;
-        this.moment = date;
+        this.moment = moment;
+        setOrderStatus(orderStatus);
         this.client = client;
+
     }
 
     public Long getId() {
@@ -39,12 +45,24 @@ public class Order implements Serializable {
         this.id = id;
     }
 
-    public Instant getDate() {
+    public Instant getMoment() {
         return moment;
     }
 
-    public void setDate(Instant date) {
+    public void setMoment(Instant date) {
         this.moment = moment;
+    }
+
+    //Catching the internal integer variable of class and convert it to OrderStatus.
+    public OrderStatus getOrderStatus() {
+        return OrderStatus.valueOf(orderStatus);
+    }
+
+    //Receiving a OrderStatus and convert it to Integer.
+    public void setOrderStatus(OrderStatus orderStatus) {
+        if (orderStatus!= null) {
+            this.orderStatus = orderStatus.getCode();
+        }
     }
 
     public User getClient() {
