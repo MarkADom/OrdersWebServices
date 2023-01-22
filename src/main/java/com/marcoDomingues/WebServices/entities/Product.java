@@ -20,7 +20,7 @@ public class Product implements Serializable {
     private String imgUrl;
 
     //Using set to ensure that I won't have a product with more than one occurrence of the same category
-    @OneToMany
+    @Transient
     private Set<Category> categories = new HashSet<>();
 
 

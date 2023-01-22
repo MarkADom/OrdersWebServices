@@ -2,10 +2,12 @@ package com.marcoDomingues.WebServices.config;
 
 import com.marcoDomingues.WebServices.entities.Category;
 import com.marcoDomingues.WebServices.entities.Order;
+import com.marcoDomingues.WebServices.entities.Product;
 import com.marcoDomingues.WebServices.entities.User;
 import com.marcoDomingues.WebServices.entities.enums.OrderStatus;
 import com.marcoDomingues.WebServices.repositories.CategoryRepository;
 import com.marcoDomingues.WebServices.repositories.OrderRepository;
+import com.marcoDomingues.WebServices.repositories.ProductRepository;
 import com.marcoDomingues.WebServices.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -26,11 +28,23 @@ public class TestConfig implements CommandLineRunner {
     private OrderRepository orderRepository;
     @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
+    private ProductRepository productRepository;
+   
+
 
 
     //everything inside this method will be executed when the application is started
     @Override
     public void run(String... args) throws Exception {
+
+        Product p1 = new Product(null, "The Lord of the Rings", "Lorem ipsum dolor sit amet, consectetur.", 90.5, "");
+        Product p2 = new Product(null, "Smart TV", "Nulla eu imperdiet purus. Maecenas ante.", 2190.0, "");
+        Product p3 = new Product(null, "Macbook Pro", "Nam eleifend maximus tortor, at mollis.", 1250.0, "");
+        Product p4 = new Product(null, "PC Gamer", "Donec aliquet odio ac rhoncus cursus.", 1200.0, "");
+        Product p5 = new Product(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, "");
+
+        productRepository.saveAll(Arrays.asList(p1, p2, p3, p4 ,p5));
 
         Category cat1 = new Category(null, "Electronics");
         Category cat2 = new Category(null, "Books");

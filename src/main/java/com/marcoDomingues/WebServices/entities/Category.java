@@ -16,7 +16,7 @@ public class Category implements Serializable {
     private Long id;
     private String name;
 
-    @ManyToOne
+    @Transient
     private Set<Product> products = new HashSet<>();
 
     public Category() {
