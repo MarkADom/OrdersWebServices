@@ -1,5 +1,6 @@
 package com.marcoDomingues.WebServices.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -24,7 +25,8 @@ public class Product implements Serializable {
     //Using set to ensure that I won't have a product with more than one occurrence of the same category
     private Set<Category> categories = new HashSet<>();
 
-
+    @OneToMany(mappedBy = "id.product")
+    private Set<OrderItem> items = new HashSet<>();
 
     public Product() {
     }
@@ -81,7 +83,15 @@ public class Product implements Serializable {
         return categories;
     }
 
-
+    @JsonIgnore
+    //getting the object associated to the order item.
+    public Set<Order> getOrders(){
+        Set<Order>set = new HashSet<>();
+        for(OrderItem i : items){
+            set.add(i.getOrder());
+        }
+        return set;
+    }
 
     @Override
     public boolean equals(Object o) {
