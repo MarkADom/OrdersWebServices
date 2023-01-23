@@ -29,8 +29,12 @@ public class UserService {
         return obj.get();
     }
 
-    //saving user data in database
+    //saving user in database
     public User insert(User obj){
        return repository.save(obj);
+    }
+
+    public void delete(Long id){
+        repository.deleteById(id);
     }
 }
