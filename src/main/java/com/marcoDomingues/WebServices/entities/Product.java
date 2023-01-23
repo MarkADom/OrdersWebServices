@@ -20,18 +20,10 @@ public class Product implements Serializable {
     private String imgUrl;
 
     @ManyToMany
-<<<<<<< HEAD
     @JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
     //Using set to ensure that I won't have a product with more than one occurrence of the same category
-=======
-    //Asociating to a table and what the foreign keys will be associated.
-    @JoinTable(name = "tb_product_category",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id"))
-
->>>>>>> refs/remotes/origin/main
     private Set<Category> categories = new HashSet<>();
-    //Using set to ensure that I won't have a product with more than one occurrence of the same category
+
 
 
     public Product() {
@@ -89,11 +81,8 @@ public class Product implements Serializable {
         return categories;
     }
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> refs/remotes/origin/main
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
