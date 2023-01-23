@@ -2,6 +2,7 @@ package com.marcoDomingues.WebServices.services;
 
 import com.marcoDomingues.WebServices.entities.User;
 import com.marcoDomingues.WebServices.repositories.UserRepository;
+import com.marcoDomingues.WebServices.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -26,7 +27,8 @@ public class UserService {
 
     public User finbById(Long id) {
         Optional<User> obj = repository.findById(id);
-        return obj.get();
+        //tries to launch get if not possible throws exceptrion
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     //saving user in database
