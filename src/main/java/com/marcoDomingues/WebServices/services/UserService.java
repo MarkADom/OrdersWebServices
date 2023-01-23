@@ -4,10 +4,12 @@ import com.marcoDomingues.WebServices.entities.User;
 import com.marcoDomingues.WebServices.repositories.UserRepository;
 import com.marcoDomingues.WebServices.services.exceptions.DatabaseException;
 import com.marcoDomingues.WebServices.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -35,8 +37,8 @@ public class UserService {
     }
 
     //saving user in database
-    public User insert(User obj){
-       return repository.save(obj);
+    public User insert(User obj) {
+        return repository.save(obj);
     }
 
 
@@ -51,13 +53,17 @@ public class UserService {
         }
     }
 
-
-    public User update(Long id, User obj){
+    public User update(Long id, User obj) {
         //prepares the monitored object to be altered and after updated.
-        User entity = repository.getOne(id);
-        updateData(entity, obj);
-        return repository.save(entity);
+        try {
+            User entity = repository.getOne(id);
+            updateData(entity, obj);
+            return repository.save(entity);
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException(id);
+        }
     }
+
 
     private void updateData(User entity, User obj) {
         entity.setName(obj.getName());
