@@ -34,7 +34,21 @@ public class UserService {
        return repository.save(obj);
     }
 
+    //deleting user in database
     public void delete(Long id){
         repository.deleteById(id);
+    }
+
+    //prepares the monitored object to be altered and after updated.
+    public User update(Long id, User obj){
+        User entity = repository.getOne(id);
+        updateData(entity, obj);
+        return repository.save(entity);
+    }
+
+    private void updateData(User entity, User obj) {
+        entity.setName(obj.getName());
+        entity.setEmail(obj.getEmail());
+        entity.setPhone(obj.getPhone());
     }
 }
