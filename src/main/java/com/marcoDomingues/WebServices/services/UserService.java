@@ -2,8 +2,11 @@ package com.marcoDomingues.WebServices.services;
 
 import com.marcoDomingues.WebServices.entities.User;
 import com.marcoDomingues.WebServices.repositories.UserRepository;
+import com.marcoDomingues.WebServices.services.exceptions.DatabaseException;
 import com.marcoDomingues.WebServices.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -36,13 +39,21 @@ public class UserService {
        return repository.save(obj);
     }
 
+
     //deleting user in database
-    public void delete(Long id){
-        repository.deleteById(id);
+    public void delete(Long id) {
+        try {
+            repository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DatabaseException(e.getMessage());
+        }
     }
 
-    //prepares the monitored object to be altered and after updated.
+
     public User update(Long id, User obj){
+        //prepares the monitored object to be altered and after updated.
         User entity = repository.getOne(id);
         updateData(entity, obj);
         return repository.save(entity);
