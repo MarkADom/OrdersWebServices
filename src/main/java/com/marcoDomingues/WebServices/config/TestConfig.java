@@ -1,14 +1,8 @@
 package com.marcoDomingues.WebServices.config;
 
-import com.marcoDomingues.WebServices.entities.Category;
-import com.marcoDomingues.WebServices.entities.Order;
-import com.marcoDomingues.WebServices.entities.Product;
-import com.marcoDomingues.WebServices.entities.User;
+import com.marcoDomingues.WebServices.entities.*;
 import com.marcoDomingues.WebServices.entities.enums.OrderStatus;
-import com.marcoDomingues.WebServices.repositories.CategoryRepository;
-import com.marcoDomingues.WebServices.repositories.OrderRepository;
-import com.marcoDomingues.WebServices.repositories.ProductRepository;
-import com.marcoDomingues.WebServices.repositories.UserRepository;
+import com.marcoDomingues.WebServices.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -30,6 +24,8 @@ public class TestConfig implements CommandLineRunner {
     private CategoryRepository categoryRepository;
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
 
     //everything inside this method will be executed when the application is started
@@ -73,6 +69,13 @@ public class TestConfig implements CommandLineRunner {
         Order o3 = new Order(null, Instant.parse("2019-07-22T15:21:22Z"), OrderStatus.WAITING_PAYMENT, u1);
 
         orderRepository.saveAll(Arrays.asList(o1, o2, o3));
+
+        OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+        OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+        OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+        OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+
+        orderItemRepository.saveAll(Arrays.asList(oi1, oi2,oi3,oi4));
 
     }
 }
