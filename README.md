@@ -6,7 +6,7 @@ Basic application to manage product orders by customers.
 
 ## Project Description
 
-Web services project with Maven, Spring Boot, JPA / Hibernate and H2.
+Backend project done with Maven, Spring Boot, JPA / Hibernate and H2.
  - Implementation of domain model
  - Structuring logical layers: resource, service, repository
  - Configuring test database (H2)
