@@ -1,6 +1,18 @@
 # WebServices
-This Project is made for JAVA study and to be added to my personal Library of Implementations.
-
-## Description
+The implementation of this app served to improve and exercise myself in Java and the its most important frameworks.
 
 ## Project Description
+Web services project with Maven, Spring Boot, JPA / Hibernate and H2.
+
+## Description 
+
+  
+ - Implementation of domain model
+ - Structuring logical layers: resource, service, repository
+ - Configuring test database (H2)
+ - Populating the database
+ - CRUD - Create, Retrieve, Update, Delete
+ - Exception Handling
+ - ...
+
+
