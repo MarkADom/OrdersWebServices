@@ -13,7 +13,7 @@ Backend project done with Maven, Spring Boot, JPA / Hibernate and H2.
  - Populating the database
  - CRUD - Create, Retrieve, Update, Delete
  - Exception Handling
- - .....
+ - ..
 
 
 
